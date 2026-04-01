@@ -57,8 +57,8 @@
         // L'afegim al mapa directament perquè sigui el fons per defecte
         map.addLayer(layer_OSM);
 			
-		var limits_zona1 = [[42.04, 3.19], [42.08, 3.25]]; 
-        var limits_zona2 = [[42.10, 3.20], [42.15, 3.30]];
+		var limits_zona1 = [[42.0346, 3.1199], [42.1378, 3.2293]]; 
+        var limits_zona2 = [[42.2258, 3.1211], [42.4362, 3.3337]];
         // 2. Tessel·les de la Batimetria (Canvia la ruta segons la teva carpeta)
         var layer_Corbes_1 = L.tileLayer('tiles_corves_estartit/{z}/{x}/{y}.png', {
             minZoom: 11,
@@ -613,9 +613,8 @@
             }
         });
         var overlaysTree = [
-			// --- CODI NOU: AFEGIR AL CONTROLADOR ---
-            {label: 'Corbes de Nivell Estartit', layer: layer_Corbes01},
-            {label: 'Corbes de Nivell C. Creus', layer: layer_Corbes02},
+			// Cridem el "grup_Corbes" en lloc de les capes individuals
+            {label: 'Corbes de Nivell (Totes les zones)', layer: grup_Corbes},
             {label: 'OpenStreetMap', layer: layer_OSM},
             // --- FI DEL CODI NOU ---
             {label: 'habitats_estartit_simpl<br /><table><tr><td style="text-align: center;"><img src="legend/habitats_estartit_simpl_1_30102Rocainfralitoralsuperiormoderadamentexposada0.png" /></td><td>30102 - Roca infralitoral superior moderadament exposada</td></tr><tr><td style="text-align: center;"><img src="legend/habitats_estartit_simpl_1_30103Rocainfralitoralsuperiorprotegida1.png" /></td><td>30103 - Roca infralitoral superior protegida</td></tr><tr><td style="text-align: center;"><img src="legend/habitats_estartit_simpl_1_30104Rocainfralitoralinferior2.png" /></td><td>30104 - Roca infralitoral inferior</td></tr><tr><td style="text-align: center;"><img src="legend/habitats_estartit_simpl_1_30401Còdolsigravesinfralitoralsicircalitorals3.png" /></td><td>30401 - Còdols i graves infralitorals i circalitorals</td></tr><tr><td style="text-align: center;"><img src="legend/habitats_estartit_simpl_1_30402Sorresisorresfangosesinfralitoralsicircalitorals4.png" /></td><td>30402 - Sorres i sorres fangoses infralitorals i circalitorals</td></tr><tr><td style="text-align: center;"><img src="legend/habitats_estartit_simpl_1_30403Fangsifangssorrencsinfralitoralsicircalitorals5.png" /></td><td>30403 - Fangs i fangs sorrencs infralitorals i circalitorals</td></tr><tr><td style="text-align: center;"><img src="legend/habitats_estartit_simpl_1_30405Fonsdetríticsbiogènicsinfralitoralsicircalitorals6.png" /></td><td>30405 - Fons detrítics biogènics infralitorals i circalitorals</td></tr><tr><td style="text-align: center;"><img src="legend/habitats_estartit_simpl_1_30509AlguersdeCymodoceanodosadezonesobertesrelativamentprofundessobresorres7.png" /></td><td>30509 - Alguers de Cymodocea nodosa de zones obertes, relativament profundes, sobre sorres</td></tr><tr><td style="text-align: center;"><img src="legend/habitats_estartit_simpl_1_30512AlguersdePosidoniaoceanica8.png" /></td><td>30512 - Alguers de Posidonia oceanica</td></tr><tr><td style="text-align: center;"><img src="legend/habitats_estartit_simpl_1_70102Objectesantròpics9.png" /></td><td>70102 - Objectes antròpics</td></tr><tr><td style="text-align: center;"><img src="legend/habitats_estartit_simpl_1_70108Espigonsisubstratsdursdeportsimarines10.png" /></td><td>70108 - Espigons i substrats durs de ports i marines</td></tr><tr><td style="text-align: center;"><img src="legend/habitats_estartit_simpl_1_70201Fangsisorresfangosesportuàries11.png" /></td><td>70201 - Fangs i sorres fangoses portuàries</td></tr><tr><td style="text-align: center;"><img src="legend/habitats_estartit_simpl_1_12.png" /></td><td></td></tr><tr><td style="text-align: center;"><img src="legend/habitats_estartit_simpl_1_3020104Coralligenambdominànciadalgues13.png" /></td><td>3020104 - Coral·ligen amb dominància d\'algues</td></tr><tr><td style="text-align: center;"><img src="legend/habitats_estartit_simpl_1_3020225Coralligenambdominànciadinvertebrats14.png" /></td><td>3020225 - Coral·ligen amb dominància d\'invertebrats</td></tr></table>', layer: layer_habitats_estartit_simpl_1},
