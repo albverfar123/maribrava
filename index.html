@@ -59,31 +59,36 @@
 			
 		var limits_zona1 = [[42.0346, 3.1199], [42.1378, 3.2293]]; 
         var limits_zona2 = [[42.2258, 3.1211], [42.4362, 3.3337]];
-        // 2. Tessel·les de la Batimetria (Canvia la ruta segons la teva carpeta)
+// --- NOU: CREEM UNA "CAPSESA" MÉS ALTA PER LES CORBES ---
+        map.createPane('pane_corbes');
+        map.getPane('pane_corbes').style.zIndex = 500; // Més alt que el 401 dels hàbitats
+        map.getPane('pane_corbes').style.pointerEvents = 'none'; // Permet fer clic als hàbitats de sota les corbes
+        
+        // 2. Tessel·les de la Batimetria (Corbes Zona 1)
         var layer_Corbes_1 = L.tileLayer('tiles_corves_estartit/{z}/{x}/{y}.png', {
+            pane: 'pane_corbes', // <-- LI DIEM QUE VAGI AL PANELL ALT
             minZoom: 11,
             maxZoom: 18,
-            tms: false, // Normalment és false per XYZ generat per QGIS
-           bounds: limits_zona1, // Li diem que no busqui fora d'aquí
+            tms: false,
+            bounds: limits_zona1, 
             attribution: 'Corbes Zona 1'
         });
-        // Descomenta la línia següent si vols que estigui encesa per defecte a l'obrir la web
-        // map.addLayer(layer_Batimetria);
 
-        // 3. Tessel·les de les Corbes de Nivell (Canvia la ruta segons la teva carpeta)
+        // 3. Tessel·les de les Corbes de Nivell (Corbes Zona 2)
         var layer_Corbes_2 = L.tileLayer('tiles_corves_capdecreus/{z}/{x}/{y}.png', {
+            pane: 'pane_corbes', // <-- LI DIEM QUE VAGI AL PANELL ALT
             minZoom: 11,
             maxZoom: 18,
             tms: false,
             opacity: 1.0,
-            bounds: limits_zona2, // Li diem que no busqui fora d'aquí
+            bounds: limits_zona2, 
             attribution: 'Corbes Zona 2'
         });
         // TRUC: Les agrupem en una sola capa perquè funcionin com un bloc
         var grup_Corbes = L.layerGroup([layer_Corbes_1, layer_Corbes_2]);
         
         // Si vols que estiguin enceses per defecte:
-        // map.addLayer(grup_Corbes);
+        map.addLayer(grup_Corbes);
         // --- FI DEL CODI NOU ---
 			
         map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
