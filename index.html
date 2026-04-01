@@ -46,6 +46,41 @@
             zoomControl:false, maxZoom:28, minZoom:1
         }).fitBounds([[42.04080204773792,3.1911904096125174],[42.07960325641373,3.2481507560952814]]);
         var hash = new L.Hash(map);
+			
+			// --- CODI NOU: CAPES RÀSTER I TILES ---
+        
+        // 1. Mapa Base d'OpenStreetMap
+        var layer_OSM = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        });
+        // L'afegim al mapa directament perquè sigui el fons per defecte
+        map.addLayer(layer_OSM); 
+
+        // 2. Tessel·les de la Batimetria (Canvia la ruta segons la teva carpeta)
+        var layer_Corbes01 = L.tileLayer('tiles_corves_estartit/{z}/{x}/{y}.png', {
+            minZoom: 11,
+            maxZoom: 18,
+            tms: false, // Normalment és false per XYZ generat per QGIS
+            opacity: 1.0,
+            attribution: 'Batimetria Local'
+        });
+        // Descomenta la línia següent si vols que estigui encesa per defecte a l'obrir la web
+        // map.addLayer(layer_Batimetria);
+
+        // 3. Tessel·les de les Corbes de Nivell (Canvia la ruta segons la teva carpeta)
+        var layer_Corbes02 = L.tileLayer('tiles_corves_capdecreus/{z}/{x}/{y}.png', {
+            minZoom: 11,
+            maxZoom: 18,
+            tms: false,
+            opacity: 1.0,
+            attribution: 'Corbes de nivell'
+        });
+        // Descomenta la línia següent si vols que estigui encesa per defecte a l'obrir la web
+        // map.addLayer(layer_Corbes);
+        
+        // --- FI DEL CODI NOU ---
+			
         map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
         var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
         // remove popup's row if "visible-with-data"
@@ -573,6 +608,11 @@
             }
         });
         var overlaysTree = [
+			// --- CODI NOU: AFEGIR AL CONTROLADOR ---
+            {label: 'Corbes de Nivell Estartit', layer: layer_Corbes01},
+            {label: 'Corbes de Nivell C. Creus', layer: layer_Corbes02},
+            {label: 'OpenStreetMap', layer: layer_OSM},
+            // --- FI DEL CODI NOU ---
             {label: 'habitats_estartit_simpl<br /><table><tr><td style="text-align: center;"><img src="legend/habitats_estartit_simpl_1_30102Rocainfralitoralsuperiormoderadamentexposada0.png" /></td><td>30102 - Roca infralitoral superior moderadament exposada</td></tr><tr><td style="text-align: center;"><img src="legend/habitats_estartit_simpl_1_30103Rocainfralitoralsuperiorprotegida1.png" /></td><td>30103 - Roca infralitoral superior protegida</td></tr><tr><td style="text-align: center;"><img src="legend/habitats_estartit_simpl_1_30104Rocainfralitoralinferior2.png" /></td><td>30104 - Roca infralitoral inferior</td></tr><tr><td style="text-align: center;"><img src="legend/habitats_estartit_simpl_1_30401Còdolsigravesinfralitoralsicircalitorals3.png" /></td><td>30401 - Còdols i graves infralitorals i circalitorals</td></tr><tr><td style="text-align: center;"><img src="legend/habitats_estartit_simpl_1_30402Sorresisorresfangosesinfralitoralsicircalitorals4.png" /></td><td>30402 - Sorres i sorres fangoses infralitorals i circalitorals</td></tr><tr><td style="text-align: center;"><img src="legend/habitats_estartit_simpl_1_30403Fangsifangssorrencsinfralitoralsicircalitorals5.png" /></td><td>30403 - Fangs i fangs sorrencs infralitorals i circalitorals</td></tr><tr><td style="text-align: center;"><img src="legend/habitats_estartit_simpl_1_30405Fonsdetríticsbiogènicsinfralitoralsicircalitorals6.png" /></td><td>30405 - Fons detrítics biogènics infralitorals i circalitorals</td></tr><tr><td style="text-align: center;"><img src="legend/habitats_estartit_simpl_1_30509AlguersdeCymodoceanodosadezonesobertesrelativamentprofundessobresorres7.png" /></td><td>30509 - Alguers de Cymodocea nodosa de zones obertes, relativament profundes, sobre sorres</td></tr><tr><td style="text-align: center;"><img src="legend/habitats_estartit_simpl_1_30512AlguersdePosidoniaoceanica8.png" /></td><td>30512 - Alguers de Posidonia oceanica</td></tr><tr><td style="text-align: center;"><img src="legend/habitats_estartit_simpl_1_70102Objectesantròpics9.png" /></td><td>70102 - Objectes antròpics</td></tr><tr><td style="text-align: center;"><img src="legend/habitats_estartit_simpl_1_70108Espigonsisubstratsdursdeportsimarines10.png" /></td><td>70108 - Espigons i substrats durs de ports i marines</td></tr><tr><td style="text-align: center;"><img src="legend/habitats_estartit_simpl_1_70201Fangsisorresfangosesportuàries11.png" /></td><td>70201 - Fangs i sorres fangoses portuàries</td></tr><tr><td style="text-align: center;"><img src="legend/habitats_estartit_simpl_1_12.png" /></td><td></td></tr><tr><td style="text-align: center;"><img src="legend/habitats_estartit_simpl_1_3020104Coralligenambdominànciadalgues13.png" /></td><td>3020104 - Coral·ligen amb dominància d\'algues</td></tr><tr><td style="text-align: center;"><img src="legend/habitats_estartit_simpl_1_3020225Coralligenambdominànciadinvertebrats14.png" /></td><td>3020225 - Coral·ligen amb dominància d\'invertebrats</td></tr></table>', layer: layer_habitats_estartit_simpl_1},
             {label: 'habitats_capdecreus_0a20_simpl<br /><table><tr><td style="text-align: center;"><img src="legend/habitats_capdecreus_0a20_simpl_0_30102Rocainfralitoralsuperiormoderadamentexposada0.png" /></td><td>30102 - Roca infralitoral superior moderadament exposada</td></tr><tr><td style="text-align: center;"><img src="legend/habitats_capdecreus_0a20_simpl_0_30103Rocainfralitoralsuperiorprotegida1.png" /></td><td>30103 - Roca infralitoral superior protegida</td></tr><tr><td style="text-align: center;"><img src="legend/habitats_capdecreus_0a20_simpl_0_30104Rocainfralitoralinferior2.png" /></td><td>30104 - Roca infralitoral inferior</td></tr><tr><td style="text-align: center;"><img src="legend/habitats_capdecreus_0a20_simpl_0_30202Rocacircalitoraldominadaperinvertebrats3.png" /></td><td>30202 - Roca circalitoral dominada per invertebrats</td></tr><tr><td style="text-align: center;"><img src="legend/habitats_capdecreus_0a20_simpl_0_30401Còdolsigravesinfralitoralsicircalitorals4.png" /></td><td>30401 - Còdols i graves infralitorals i circalitorals</td></tr><tr><td style="text-align: center;"><img src="legend/habitats_capdecreus_0a20_simpl_0_30402Sorresisorresfangosesinfralitoralsicircalitorals5.png" /></td><td>30402 - Sorres i sorres fangoses infralitorals i circalitorals</td></tr><tr><td style="text-align: center;"><img src="legend/habitats_capdecreus_0a20_simpl_0_30403Fangsifangssorrencsinfralitoralsicircalitorals6.png" /></td><td>30403 - Fangs i fangs sorrencs infralitorals i circalitorals</td></tr><tr><td style="text-align: center;"><img src="legend/habitats_capdecreus_0a20_simpl_0_30405Fonsdetríticsbiogènicsinfralitoralsicircalitorals7.png" /></td><td>30405 - Fons detrítics biogènics infralitorals i circalitorals</td></tr><tr><td style="text-align: center;"><img src="legend/habitats_capdecreus_0a20_simpl_0_30509AlguersdeCymodoceanodosadezonesobertesrelativamentprofundessobresorres8.png" /></td><td>30509 - Alguers de Cymodocea nodosa de zones obertes, relativament profundes, sobre sorres</td></tr><tr><td style="text-align: center;"><img src="legend/habitats_capdecreus_0a20_simpl_0_30512AlguersdePosidoniaoceanica9.png" /></td><td>30512 - Alguers de Posidonia oceanica</td></tr><tr><td style="text-align: center;"><img src="legend/habitats_capdecreus_0a20_simpl_0_3051203AlguersdematamortadePosidoniaoceanica10.png" /></td><td>3051203 - Alguers de mata morta de Posidonia oceanica</td></tr><tr><td style="text-align: center;"><img src="legend/habitats_capdecreus_0a20_simpl_0_30513Alguersenbadiesillacunesiherbeisdalguesverdesrizomatoses11.png" /></td><td>30513 - Alguers en badies i llacunes i herbeis d\'algues verdes rizomatoses</td></tr><tr><td style="text-align: center;"><img src="legend/habitats_capdecreus_0a20_simpl_0_70102Objectesantròpics12.png" /></td><td>70102 - Objectes antròpics</td></tr><tr><td style="text-align: center;"><img src="legend/habitats_capdecreus_0a20_simpl_0_70108Espigonsantierosió13.png" /></td><td>70108 - Espigons anti-erosió</td></tr><tr><td style="text-align: center;"><img src="legend/habitats_capdecreus_0a20_simpl_0_70108Espigonsisubstratsdursdeportsimarines14.png" /></td><td>70108 - Espigons i substrats durs de ports i marines</td></tr><tr><td style="text-align: center;"><img src="legend/habitats_capdecreus_0a20_simpl_0_70201Fangsisorresfangosesportuàries15.png" /></td><td>70201 - Fangs i sorres fangoses portuàries</td></tr><tr><td style="text-align: center;"><img src="legend/habitats_capdecreus_0a20_simpl_0_16.png" /></td><td></td></tr></table>', layer: layer_habitats_capdecreus_0a20_simpl_0},]
         var lay = L.control.layers.tree(null, overlaysTree,{
