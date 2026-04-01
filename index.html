@@ -55,15 +55,17 @@
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         });
         // L'afegim al mapa directament perquè sigui el fons per defecte
-        map.addLayer(layer_OSM); 
-
+        map.addLayer(layer_OSM);
+			
+		var limits_zona1 = [[42.04, 3.19], [42.08, 3.25]]; 
+        var limits_zona2 = [[42.10, 3.20], [42.15, 3.30]];
         // 2. Tessel·les de la Batimetria (Canvia la ruta segons la teva carpeta)
-        var layer_Corbes01 = L.tileLayer('tiles_corves_estartit/{z}/{x}/{y}.png', {
+        var layer_Corbes_1 = L.tileLayer('tiles_corves_estartit/{z}/{x}/{y}.png', {
             minZoom: 11,
             maxZoom: 18,
             tms: false, // Normalment és false per XYZ generat per QGIS
-            opacity: 1.0,
-            attribution: 'Batimetria Local'
+           bounds: limits_zona1, // Li diem que no busqui fora d'aquí
+            attribution: 'Corbes Zona 1'
         });
         // Descomenta la línia següent si vols que estigui encesa per defecte a l'obrir la web
         // map.addLayer(layer_Batimetria);
@@ -74,11 +76,14 @@
             maxZoom: 18,
             tms: false,
             opacity: 1.0,
-            attribution: 'Corbes de nivell'
+            bounds: limits_zona2, // Li diem que no busqui fora d'aquí
+            attribution: 'Corbes Zona 2'
         });
-        // Descomenta la línia següent si vols que estigui encesa per defecte a l'obrir la web
-        // map.addLayer(layer_Corbes);
+        // TRUC: Les agrupem en una sola capa perquè funcionin com un bloc
+        var grup_Corbes = L.layerGroup([layer_Corbes_1, layer_Corbes_2]);
         
+        // Si vols que estiguin enceses per defecte:
+        // map.addLayer(grup_Corbes);
         // --- FI DEL CODI NOU ---
 			
         map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
