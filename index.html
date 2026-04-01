@@ -51,7 +51,7 @@
         
         // 1. Mapa Base d'OpenStreetMap
         var layer_OSM = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 19,
+            maxZoom: 21,
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         });
         // L'afegim al mapa directament perquè sigui el fons per defecte
@@ -68,7 +68,7 @@
         var layer_Corbes_1 = L.tileLayer('tiles_corves_estartit/{z}/{x}/{y}.png', {
             pane: 'pane_corbes', // <-- LI DIEM QUE VAGI AL PANELL ALT
             minZoom: 11,
-            maxZoom: 18,
+            maxZoom: 21,
             tms: false,
             bounds: limits_zona1, 
             attribution: 'Corbes Zona 1'
@@ -78,7 +78,7 @@
         var layer_Corbes_2 = L.tileLayer('tiles_corves_capdecreus/{z}/{x}/{y}.png', {
             pane: 'pane_corbes', // <-- LI DIEM QUE VAGI AL PANELL ALT
             minZoom: 11,
-            maxZoom: 18,
+            maxZoom: 21,
             tms: false,
             opacity: 1.0,
             bounds: limits_zona2, 
